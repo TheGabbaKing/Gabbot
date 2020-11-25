@@ -167,7 +167,9 @@ class Commands(commands.Cog):
         cogs._json.write_json(data, 'prefixes')
         await ctx.send(f"Your server may now summon **Gabbot**:registered::tm: using the prefix `{pre}`")
 
-
+    @commands.command()
+    async def it(self, ctx):
+        await ctx.send('The Gabbot:registered::tm: github can be found here:\n https://github.com/TheGabbaKing/Gabbot')
 
 # Sets up bot
 def setup(bot):
