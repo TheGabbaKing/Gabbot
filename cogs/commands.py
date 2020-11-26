@@ -11,6 +11,7 @@ class Commands(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -61,7 +62,7 @@ class Commands(commands.Cog):
         """
         A simple command that repeats the users input back to them.
         """
-        message = message or "Please provide the message to be repeated."
+        message = message or "Please provide a message to be repeated."
         await ctx.message.delete()
         await ctx.send(message)
         # await echoMsg.add_reaction('<:yeogey:761263155292536832>')

@@ -5,6 +5,8 @@ from pathlib import Path
 import json
 import os
 
+from discord.flags import Intents
+
 import cogs._json
 
 # current working directory
@@ -22,7 +24,7 @@ def get_prefix(bot, message):
 
 # MUST create a secrets.json folder yourself and add it to that folder and put the 'token' in there
 secret_file = json.load(open(cwd+'/json_files/secrets.json')) 
-bot = commands.Bot(command_prefix=get_prefix, case_insensitive=True, owner_id=487110546223661076) # Bot is the same as Client 
+bot = commands.Bot(command_prefix=get_prefix, case_insensitive=True, owner_id=487110546223661076, intents = Intents.all()) # Bot is the same as Client 
 bot.config_token = secret_file['token'] # sets discord bot token
 logging.basicConfig(level=logging.INFO) # 
 
