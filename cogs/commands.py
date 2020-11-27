@@ -2,8 +2,10 @@ import discord
 from discord.ext import commands
 import platform
 import os
+import os.path, time
 import asyncio
 import traceback
+import datetime
 
 import cogs._json
 
@@ -11,13 +13,11 @@ class Commands(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        
-
+    
     @commands.Cog.listener()
     async def on_ready(self):
         print(f"{self.__class__.__name__} Cog has been loaded\n-----")  
-    
-    
+              
     # STATISTICS command
     @commands.command()
     async def statistics(self, ctx):
@@ -171,6 +171,18 @@ class Commands(commands.Cog):
     @commands.command()
     async def it(self, ctx):
         await ctx.send('The Gabbot:registered::tm: github can be found here:\n https://github.com/TheGabbaKing/Gabbot')
+
+    @commands.command()
+    @commands.is_owner()
+    async def updated(self, ctx):
+        commandsUpdated = os.path.getmtime(".\cogs\commands.py")
+        eventsUpdated = os.path.getmtime(".\cogs\events.py")
+        commandsModTime = datetime.datetime.fromtimestamp(commandsUpdated).strftime("%c")
+        eventsModTime = datetime.datetime.fromtimestamp(eventsUpdated).strftime("%c")
+
+        await ctx.send(f"`Commands Last Modified:` {commandsModTime}")
+        await ctx.send(f"`Events Last Modified:` {eventsModTime}")
+
 
 # Sets up bot
 def setup(bot):
