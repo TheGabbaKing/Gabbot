@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import os
+import os.path, time
 
 import cogs._json
 
@@ -67,11 +68,7 @@ class Events(commands.Cog):
             await prefixMsg.add_reaction('<:stanky:674791983272951849>')
             await prefixMsg.add_reaction('<a:yuriSHOUT:740500552248459306>')
 
-
-        if ":yeogey:" in message.content:
-            await message.add_reaction('<:yeogey:761263155292536832>')
-
-        if "yeogey" in message.content:
+        if 'yeogey'.casefold() in message.content.casefold():
             await message.add_reaction('<:yeogey:761263155292536832>')
 
     
