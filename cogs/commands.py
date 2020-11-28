@@ -7,7 +7,7 @@ import asyncio
 import traceback
 import datetime
 
-import cogs._json
+import utils.json
 
 class Commands(commands.Cog):
 
@@ -141,9 +141,9 @@ class Commands(commands.Cog):
             await ctx.send("You can't blacklist yourself, idiot.")
             return
         self.bot.blacklisted_users.append(user.id)
-        data = cogs._json.read_json("blacklist")
+        data = utils.json.read_json("blacklist")
         data["blacklistedUsers"].append(user.id)
-        cogs._json.write_json(data, "blacklist")
+        utils.json.write_json(data, "blacklist")
         await ctx.send(f"{user.name} has been blacklisted.")
 
     # UNBLACKLIST command
@@ -151,9 +151,9 @@ class Commands(commands.Cog):
     @commands.is_owner()
     async def unblacklist(self, ctx, user: discord.Member):
         self.bot.blacklisted_users.remove(user.id)
-        data = cogs._json.read_json("blacklist")
+        data = utils.json.read_json("blacklist")
         data["blacklistedUsers"].remove(user.id)
-        cogs._json.write_json(data, "blacklist")
+        utils.json.write_json(data, "blacklist")
         await ctx.send(f"{user.name} has been unblacklisted.")
 
     @commands.command()
@@ -163,9 +163,9 @@ class Commands(commands.Cog):
         """
         Set a custom prefix for a server
         """
-        data = cogs._json.read_json('prefixes')
+        data = utils.json.read_json('prefixes')
         data[str(ctx.message.guild.id)] = pre
-        cogs._json.write_json(data, 'prefixes')
+        utils.json.write_json(data, 'prefixes')
         await ctx.send(f"Your server may now summon **Gabbot**:registered::tm: using the prefix `{pre}`")
 
     @commands.command()

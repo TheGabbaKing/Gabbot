@@ -3,7 +3,7 @@ from discord.ext import commands
 import os
 import os.path, time
 
-import cogs._json
+import utils.json
 
 class Events(commands.Cog):
 
@@ -57,7 +57,7 @@ class Events(commands.Cog):
         if message.content.startswith(f"<@!{self.bot.user.id}>") and len(message.content) == len(
         f"<@!{self.bot.user.id}>"
             ):
-            data = cogs._json.read_json('prefixes')
+            data = utils.json.read_json('prefixes')
             if str(message.guild.id) in data:
                 prefix = data[str(message.guild.id)]
             else:
