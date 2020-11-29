@@ -39,11 +39,21 @@ class KaicordGiveaway(commands.Cog):
     @commands.command(name="choose-kwinner")
     @commands.has_permissions(manage_guild=True)
     async def choose_kaicord_winner(self, ctx):
-        await ctx.send(f"This is the current message ID: nothing")
+        
         showandtell = self.bot.get_channel(780689148461449216)
-        logs = self.bot.logs_from(showandtell, limit=1)
-        messageID = logs.messageID
-        await ctx.send(f"This is the current message ID: {messageID}")
+        await ctx.send(f"Channel fetched")
+
+        recent = await showandtell.history(limit = 1).flatten()
+        
+        users = await recent[0].reactions[0].users().flatten()
+        await ctx.send(f"reactions found")
+
+        winner = random.choice(users)
+        await ctx.send(f"winner chosen")
+
+        await showandtell.send(f"Congrats {winner.mention}, you've won Show and Tell.\nPlease post your SFW video in the <#780689148461449216> channel.")
+        showrole = discord.utils.get(recent[0].guild.roles, name="Show and Tell")
+        await winner.add_roles(showrole)
 
 
 
