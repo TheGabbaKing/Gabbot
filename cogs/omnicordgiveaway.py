@@ -18,7 +18,7 @@ class OmnicordGiveaway(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         
-        if message.channel.id == 780689148461449216 and message.author.id != 775935707687944192: #or message.channel.id == 775956845516029973:
+        if message.channel.id == 782766078995988510 and message.author.id != 775935707687944192: #or message.channel.id == 775956845516029973:
             await message.add_reaction('<:yeogey:761263155292536832>')
             await message.add_reaction('<:angeleblush:778379425119993856>')
             await message.add_reaction('<:slep:693209192885911642>')
@@ -31,11 +31,11 @@ class OmnicordGiveaway(commands.Cog):
     @tasks.loop(hours=24)
     async def omnicord_giveaway_task(self):
         
-        print('started!')
+        print(' Omnicord started!')
 
         showandtell = self.bot.get_channel(782766078995988510)
 
-        embed = discord.Embed(title="Omnicord Show and Tell Giveaway", description="Enter to win the next Show and Tell")
+        embed = discord.Embed(title="Kaicord Show and Tell Giveaway", description="Enter to win the next Show and Tell")
         
         message = await showandtell.send(embed=embed)
         await message.add_reaction("🎉")
@@ -47,7 +47,10 @@ class OmnicordGiveaway(commands.Cog):
         users = await new_msg.reactions[0].users().flatten()
         users.pop(users.index(self.bot.user))
 
-        await self.bot.get_channel(656260924256288778).send(f"Reacted by: {users}")
+        usersName = []
+        for i in users:
+            usersName.append(i.name)
+        await self.bot.get_channel(656260924256288778).send(f"**Reacted by: ** {', '.join(usersName)}")
 
         winner = random.choice(users)
 

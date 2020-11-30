@@ -18,7 +18,7 @@ class KaicordGiveaway(commands.Cog):
     @tasks.loop(seconds=30)
     async def kaicord_giveaway_task(self):
         
-        print('started!')
+        print('Kaicord started!')
 
         showandtell = self.bot.get_channel(780689148461449216)
 
@@ -27,7 +27,7 @@ class KaicordGiveaway(commands.Cog):
         message = await showandtell.send(embed=embed)
         await message.add_reaction("🎉")
 
-        await asyncio.sleep(20)
+        await asyncio.sleep(86390)
 
         new_msg = await showandtell.fetch_message(message.id)
 
