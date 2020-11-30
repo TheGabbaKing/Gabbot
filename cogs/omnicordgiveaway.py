@@ -65,7 +65,7 @@ class OmnicordGiveaway(commands.Cog):
         print('Omnicord waiting...')
         await self.bot.wait_until_ready()
 
-        delayTime = (timedelta(hours=24) - (datetime.datetime.utcnow()- datetime.datetime.utcnow().replace(hour=23, minute=00, second=0, microsecond=0))).total_seconds() % (24 * 3600)
+        delayTime = (timedelta(hours=24) - (datetime.datetime.utcnow()- datetime.datetime.utcnow().replace(hour=12, minute=00, second=0, microsecond=0))).total_seconds() % (24 * 3600)
         await asyncio.sleep(delayTime)
 
     @commands.command(name="o-giveaway")
