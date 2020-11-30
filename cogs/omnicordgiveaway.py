@@ -35,7 +35,7 @@ class OmnicordGiveaway(commands.Cog):
 
         showandtell = self.bot.get_channel(782766078995988510)
 
-        embed = discord.Embed(title="Kaicord Show and Tell Giveaway", description="Enter to win the next Show and Tell")
+        embed = discord.Embed(title="Omnicord Show and Tell Giveaway", description="Enter to win the next Show and Tell")
         
         message = await showandtell.send(embed=embed)
         await message.add_reaction("🎉")
