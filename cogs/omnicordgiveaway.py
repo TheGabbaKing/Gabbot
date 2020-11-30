@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands, tasks
 import random
 import datetime 
+from datetime import timedelta
 import asyncio
 
 class OmnicordGiveaway(commands.Cog):
@@ -20,10 +21,11 @@ class OmnicordGiveaway(commands.Cog):
         
         if message.channel.id == 782766078995988510 and message.author.id != 775935707687944192: #or message.channel.id == 775956845516029973:
             await message.add_reaction('<:yeogey:761263155292536832>')
-            await message.add_reaction('<:angeleblush:778379425119993856>')
-            await message.add_reaction('<:slep:693209192885911642>')
+            await message.add_reaction('<:flooshed:782834444846759956>')
+            await message.add_reaction('<:MiyeonOOP:647029478081691661>')
+            await message.add_reaction('<:somicry:782820489525461042>')
             await message.add_reaction('<:stanky:674791983272951849>')
-            await message.add_reaction('<a:yuriSHOUT:740500552248459306>')
+            await message.add_reaction('<:slep:693209192885911642>')
 
             showrole = discord.utils.get(message.guild.roles, name="Show and Tell")
             await message.author.remove_roles(showrole)
@@ -60,8 +62,11 @@ class OmnicordGiveaway(commands.Cog):
     
     @omnicord_giveaway_task.before_loop
     async def before_ogiveaway(self):
-        print('waiting...')
+        print('Omnicord waiting...')
         await self.bot.wait_until_ready()
+
+        delayTime = (timedelta(hours=24) - (datetime.datetime.utcnow()- datetime.datetime.utcnow().replace(hour=23, minute=00, second=0, microsecond=0))).total_seconds() % (24 * 3600)
+        await asyncio.sleep(delayTime)
 
     @commands.command(name="o-giveaway")
     @commands.has_permissions(manage_guild=True)
