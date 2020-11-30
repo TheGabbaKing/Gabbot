@@ -43,16 +43,6 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         
-        if message.channel.id == 780689148461449216 and message.author.id != 775935707687944192: #or message.channel.id == 775956845516029973:
-            await message.add_reaction('<:yeogey:761263155292536832>')
-            await message.add_reaction('<:angeleblush:778379425119993856>')
-            await message.add_reaction('<:slep:693209192885911642>')
-            await message.add_reaction('<:stanky:674791983272951849>')
-            await message.add_reaction('<a:yuriSHOUT:740500552248459306>')
-
-            showrole = discord.utils.get(message.guild.roles, name="Show and Tell")
-            await message.author.remove_roles(showrole)
-
         # Whenever bot is tagged, respond with it's prefix
         if message.content.startswith(f"<@!{self.bot.user.id}>") and len(message.content) == len(
         f"<@!{self.bot.user.id}>"

@@ -58,6 +58,7 @@ class Commands(commands.Cog):
 
     # ECHO command
     @commands.command()
+    @commands.is_owner()
     async def echo(self, ctx, *, message=None):
         """
         A simple command that repeats the users input back to them.
@@ -170,6 +171,9 @@ class Commands(commands.Cog):
 
     @commands.command()
     async def it(self, ctx):
+        """
+        Sends a link to the Gabbot github repository
+        """
         await ctx.send('The Gabbot:registered::tm: github can be found here:\n https://github.com/TheGabbaKing/Gabbot')
 
     @commands.command()
