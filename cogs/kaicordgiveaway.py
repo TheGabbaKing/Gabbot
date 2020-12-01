@@ -37,7 +37,8 @@ class KaicordGiveaway(commands.Cog):
         showandtell = self.bot.get_channel(780689148461449216)
 
         embed = discord.Embed(title="Kaicord Show and Tell Giveaway", description="Enter to win the next Show and Tell")
-        
+        embed.set_footer(text=f"Giveaway ends at 6pm KaiST (24 hours from this message).")
+
         message = await showandtell.send(embed=embed)
         await message.add_reaction("🎉")
 
@@ -67,12 +68,27 @@ class KaicordGiveaway(commands.Cog):
 
         delayTime = (timedelta(hours=24) - (datetime.datetime.utcnow()- datetime.datetime.utcnow().replace(hour=23, minute=00, second=0, microsecond=0))).total_seconds() % (24 * 3600)
         await asyncio.sleep(delayTime)
+        
+        showandtell = self.bot.get_channel(780689148461449216)
+        recent = await showandtell.history(limit = 2).flatten()
+        
+        users = await recent[0].reactions[0].users().flatten()
+        users.pop(users.index(self.bot.user))
+    
+        winner = random.choice(users)
 
-    @commands.command(name="k-giveaway")
+        await showandtell.send(f"Congrats {winner.mention}, you've won Show and Tell.\nPlease post your SFW content in the <#780689148461449216> channel.")
+        showrole = discord.utils.get(recent[0].guild.roles, name="Show and Tell")
+        await winner.add_roles(showrole)
+
+        await asyncio.sleep(10)
+
+    @commands.command(name="k-giveaway", aliases=['kgive'])
     @commands.has_permissions(manage_guild=True)
     async def kaicord_giveaway(self, ctx, mins:int):
         embed = discord.Embed(title="Kaicord Show and Tell Giveaway", description="Enter to win the next Show and Tell")
-
+        embed.set_footer(text=f"Giveaway ends at 6pm KaiST (24 hours from this message).")
+        
         message = await ctx.send(embed=embed)
         await message.add_reaction("🎉")
 
@@ -89,7 +105,7 @@ class KaicordGiveaway(commands.Cog):
         showrole = discord.utils.get(message.guild.roles, name="Show and Tell")
         await winner.add_roles(showrole)
         
-    @commands.command(name="choose-kwinner")
+    @commands.command(name="choose-kwinner", aliases=['kwinner, kwin'])
     @commands.has_permissions(manage_guild=True)
     async def choose_kaicord_winner(self, ctx):
         
@@ -108,8 +124,6 @@ class KaicordGiveaway(commands.Cog):
         await showandtell.send(f"Congrats {winner.mention}, you've won Show and Tell.\nPlease post your SFW content in the <#780689148461449216> channel.")
         showrole = discord.utils.get(recent[1].guild.roles, name="Show and Tell")
         await winner.add_roles(showrole)
-
-
 
 def setup(bot):
     bot.add_cog(KaicordGiveaway(bot))

@@ -32,7 +32,7 @@ logging.basicConfig(level=logging.INFO) #
 bot.blacklisted_users = [] # blacklisted users list
 bot.cwd = cwd
 
-bot.version = 'Beta 0.7.2' # bot version
+bot.version = 'Beta 0.7.3' # bot version
 
 # bot events
 @bot.event

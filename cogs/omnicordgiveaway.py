@@ -33,18 +33,19 @@ class OmnicordGiveaway(commands.Cog):
     @tasks.loop(hours=24)
     async def omnicord_giveaway_task(self):
         
-        print(' Omnicord started!')
+        print('Omnicord started!')
 
-        showandtell = self.bot.get_channel(782766078995988510)
+        showandtellOmni = self.bot.get_channel(782766078995988510)
 
         embed = discord.Embed(title="Omnicord Show and Tell Giveaway", description="Enter to win the next Show and Tell")
+        embed.set_footer(text=f"Giveaway ends at 11am UTC (24 hours from this message).")
         
-        message = await showandtell.send(embed=embed)
+        message = await showandtellOmni.send(embed=embed)
         await message.add_reaction("🎉")
 
         await asyncio.sleep(86390)
 
-        new_msg = await showandtell.fetch_message(message.id)
+        new_msg = await showandtellOmni.fetch_message(message.id)
 
         users = await new_msg.reactions[0].users().flatten()
         users.pop(users.index(self.bot.user))
@@ -56,7 +57,7 @@ class OmnicordGiveaway(commands.Cog):
 
         winner = random.choice(users)
 
-        await showandtell.send(f"Congrats {winner.mention}, you've won Show and Tell.\nPlease post your SFW content in the <#780689148461449216> channel.")
+        await showandtellOmni.send(f"Congrats {winner.mention}, you've won Show and Tell.\nPlease post your SFW content in the <#780689148461449216> channel.")
         showrole = discord.utils.get(message.guild.roles, name="Show and Tell")
         await winner.add_roles(showrole)
     
@@ -65,14 +66,14 @@ class OmnicordGiveaway(commands.Cog):
         print('Omnicord waiting...')
         await self.bot.wait_until_ready()
 
-        delayTime = (timedelta(hours=24) - (datetime.datetime.utcnow()- datetime.datetime.utcnow().replace(hour=12, minute=00, second=0, microsecond=0))).total_seconds() % (24 * 3600)
+        delayTime = (timedelta(hours=24) - (datetime.datetime.utcnow()- datetime.datetime.utcnow().replace(hour=11, minute=00, second=0, microsecond=0))).total_seconds() % (24 * 3600)
         await asyncio.sleep(delayTime)
 
     @commands.command(name="o-giveaway")
     @commands.has_permissions(manage_guild=True)
     async def omnicord_giveaway(self, ctx, mins:int):
         embed = discord.Embed(title="Omnicord Show and Tell Giveaway", description="Enter to win the next Show and Tell")
-
+        embed.set_footer(text=f"Giveaway ends at 11am UTC (24 hours from this message).")
         message = await ctx.send(embed=embed)
         await message.add_reaction("🎉")
 
