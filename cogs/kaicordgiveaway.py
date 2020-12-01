@@ -72,13 +72,16 @@ class KaicordGiveaway(commands.Cog):
         showandtell = self.bot.get_channel(780689148461449216)
         recent = await showandtell.history(limit = 2).flatten()
         
-        users = await recent[0].reactions[0].users().flatten()
+        users = await recent[1].reactions[0].users().flatten()
         users.pop(users.index(self.bot.user))
-    
+        usersName = []
+        for i in users:
+            usersName.append(i.name)
+        await self.bot.get_channel(623997789306617856).send(f"**Reacted by: ** {', '.join(usersName)}")
         winner = random.choice(users)
 
         await showandtell.send(f"Congrats {winner.mention}, you've won Show and Tell.\nPlease post your SFW content in the <#780689148461449216> channel.")
-        showrole = discord.utils.get(recent[0].guild.roles, name="Show and Tell")
+        showrole = discord.utils.get(recent[1].guild.roles, name="Show and Tell")
         await winner.add_roles(showrole)
 
         await asyncio.sleep(10)
@@ -98,6 +101,11 @@ class KaicordGiveaway(commands.Cog):
 
         users = await new_msg.reactions[0].users().flatten()
         users.pop(users.index(self.bot.user))
+        usersName = []  
+        for i in users:
+            usersName.append(i.name)
+        await self.bot.get_channel(623997789306617856).send(f"**Reacted by: ** {', '.join(usersName)}")
+        winner = random.choice(users)
 
         winner = random.choice(users)
 
@@ -110,16 +118,18 @@ class KaicordGiveaway(commands.Cog):
     async def choose_kaicord_winner(self, ctx):
         
         showandtell = self.bot.get_channel(780689148461449216)
-        await ctx.send(f"Channel fetched")
-
         recent = await showandtell.history(limit = 2).flatten()
         
         users = await recent[1].reactions[0].users().flatten()
         users.pop(users.index(self.bot.user))
-        await ctx.send(f"reactions found")
+
+        usersName = []
+        for i in users:
+            usersName.append(i.name)
+        await self.bot.get_channel(623997789306617856).send(f"**Reacted by: ** {', '.join(usersName)}")
+        winner = random.choice(users)
 
         winner = random.choice(users)
-        await ctx.send(f"winner chosen")
 
         await showandtell.send(f"Congrats {winner.mention}, you've won Show and Tell.\nPlease post your SFW content in the <#780689148461449216> channel.")
         showrole = discord.utils.get(recent[1].guild.roles, name="Show and Tell")
