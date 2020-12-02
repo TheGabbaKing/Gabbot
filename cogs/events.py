@@ -53,10 +53,7 @@ class Events(commands.Cog):
             else:
                 prefix = 'g.'
             prefixMsg = await message.channel.send(f"The **Gabbot**:registered::tm: prefix is `{prefix}`")
-            await prefixMsg.add_reaction('<:yeogey:761263155292536832>')
-            await prefixMsg.add_reaction('<:slep:693209192885911642>')
-            await prefixMsg.add_reaction('<:stanky:674791983272951849>')
-            await prefixMsg.add_reaction('<a:yuriSHOUT:740500552248459306>')
+            await prefixMsg.add_reaction('💦')
 
         if 'yeogey'.casefold() in message.content.casefold():
             await message.add_reaction('<:yeogey:761263155292536832>')
